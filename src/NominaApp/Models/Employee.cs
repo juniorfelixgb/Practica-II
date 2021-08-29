@@ -32,7 +32,8 @@ namespace NominaApp.Models
         public double ArsDiscount { get; private set; }
         public double IsrDiscount { get; private set; }
         public double TotalDiscount { get; private set; }
-        public double NetSalary { get; set; }
+        public double NetSalary { get; private set; }
+        
         private void GetSfsDiscount()
         {
             double result = Salary * 3.04;
@@ -49,26 +50,15 @@ namespace NominaApp.Models
         }
         private void GetArsDiscount()
         {
-            
+            ArsDiscount = (Salary / 12) * 0.10;
         }
         private void GetIsrDiscount()
         {
-            double result = Salary - (SfsDiscount - AfpDiscount);
-            double limit = 34_685.00;
-            if(result > limit)
+            double result = (Salary - (SfsDiscount + AfpDiscount)) * 12;
+            double limit = 624_329.01;
+            if (result > limit)
             {
-                if (result < 52_027.42)
-                {
-                    IsrDiscount = result * 0.15;
-                }
-                else if (result > 52_027.42 && result < 72_260.25)
-                {
-                    IsrDiscount = (result + 2_601.33) * 0.20; 
-                }
-                else if (result > 72_260.25)
-                {
-                    IsrDiscount = (result + 6_648.00) * 0.25;
-                }
+                IsrDiscount = (((result - limit) * 0.20) + 31_216.00)  / 12;
             }
         }
         private void GetTotalDiscount()
@@ -77,9 +67,9 @@ namespace NominaApp.Models
         }
         private void GetNetSalary()
         {
-            NetSalary = SfsDiscount + AfpDiscount + IsrDiscount;
+            NetSalary = Salary - (SfsDiscount + AfpDiscount + IsrDiscount);
         }
-        
+
         public override string ToString() 
             => $"El empleado {LastName}, {FirstName} ocupa el puesto: {Position} con un salario: {FormatMoney(Salary)}";
     }
