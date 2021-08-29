@@ -62,6 +62,31 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
+.flex {
+  display: flex;
+}
+
+.circle-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin: 10px;
+  background-color: gainsboro;
+}
+
+.format-row {
+  width: 10px;
+}
+
+.is-active:hover {
+  width: 1px;
+  background-color: greenyellow;
+}
+
 .footer {
   position: absolute;
   bottom: 0;

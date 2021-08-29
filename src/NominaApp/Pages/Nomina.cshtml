@@ -1,0 +1,85 @@
+﻿@page
+@model MyApp.Namespace.NominaModel
+
+<h1 class="pb-3">Nomina de Empleados</h1>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cargo</th>
+                <th>Salario</th>
+                <th>SFS</th>
+                <th>AFP</th>
+                <th>ARS</th>
+                <th>ISR</th>
+                <th>Descuentos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model.Employees)
+            {
+                <tr class="is-active">
+                    <td>
+                        <div class="flex">
+                            <div class="circle-icon">
+                                <span class="oi oi-person text-white" title="person" aria-hidden="true"></span>
+                            </div>
+                            <p>
+                                @employee.FirstName <br />
+                                @employee.LastName
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        @employee.Position
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="@employee.ToString()">
+                            <small>
+                                <strong>Descripcion: </strong> @employee.ToString()
+                            </small>
+                        </button>
+                    </td>
+                    <td class="format-row">
+                        @employee.FormatMoney(employee.Salary) <br />
+                        <small>
+                            <div class="alert alert-success">
+                               <strong>Neto: </strong><br />
+                               @employee.FormatMoney(employee.NetSalary)
+                            </div>
+                        </small>
+                    </td>
+                    <td>
+                        <div class="alert alert-info">
+                            @employee.FormatMoney(employee.SfsDiscount)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="alert alert-info">
+                            @employee.FormatMoney(employee.AfpDiscount)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="alert alert-info">
+                            @employee.FormatMoney(employee.ArsDiscount)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="alert alert-info">
+                            @employee.FormatMoney(employee.IsrDiscount)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="alert alert-info">
+                            @employee.FormatMoney(employee.TotalDiscount)
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@{
+
+}
